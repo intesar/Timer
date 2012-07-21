@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.css" />
+        <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.js"></script>
+        <script type="text/javascript">
+            var s;
+            var interval;
+            var started = 0;
+            function start() {
+                if ( started == 1 ) {
+                    started = 0;
+                    document.getElementById('timer').innerHTML = 0;
+                    window.clearInterval(interval);
+                    return;
+                }
+                s = document.getElementById('seconds').valueAsNumber;
+                document.getElementById('timer').innerHTML = (s);
+                interval = setInterval(show,1000);
+                started = 1;
+                
+            }
+            function show() {
+                if ( s == 0 ) {
+                    started = 0;
+                    window.clearInterval(interval)
+                    play();
+                    return
+                }
+                document.getElementById('timer').innerHTML = (--s);
+            }
+            
+            function play() {
+                document.getElementById('audiotag1').play();
+                if ( document.getElementById("repeat").checked ) {
+                    document.getElementById("btn").click();
+                }
+            }
+        </script>
+    </head>
+    <body>
+
+        <div style="width:200px;padding: 1%">
+            <input type="number" value="180" id="seconds"/>
+            <label><input type="checkbox" id="repeat" /> Repeat </label>
+            <input type="submit" value="Start/Stop" id="btn" onclick="start();" data-theme="b"/>
+        </div>
+
+        <audio id="audiotag1" style="display:none" controls="controls">
+            <source src="song.mp3" type="audio/mpeg" />
+        </audio>
+
+
+        <div id="timer" style="font-size: 200px;padding: 1%">
+
+        </div>
+        
+
+    </body>
+</html>
+
